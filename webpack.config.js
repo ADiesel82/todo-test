@@ -1,21 +1,21 @@
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATHS = {
-  root: path.resolve(__dirname, "./"),
-  src: path.resolve(__dirname, "./src"),
-  dist: path.resolve(__dirname, "./dist")
+  root: path.resolve(__dirname, './'),
+  src: path.resolve(__dirname, './src'),
+  dist: path.resolve(__dirname, './dist'),
 };
 
 const defaults = {
-  PORT: process.env.PORT || 8080
+  PORT: process.env.PORT || 8080,
 };
 
-const reStyle = /\.(css|less|styl|scss|sass|sss)$/;
+const reStyle = /\.css$/;
 const reTypeScript = /\.tsx?$/;
 const minimizeCssOptions = {
-  discardComments: { removeAll: true }
+  discardComments: { removeAll: true },
 };
 
 module.exports = (env = defaults) => {
@@ -27,34 +27,34 @@ module.exports = (env = defaults) => {
   return [
     {
       cache: true,
-      devtool: isDev ? "eval-source-map" : "source-map",
+      devtool: isDev ? 'eval-source-map' : 'source-map',
       devServer: {
         contentBase: PATHS.root,
         hot: true,
         hotOnly: true,
         historyApiFallback: true,
         overlay: true,
-        port: env.PORT || 8080
+        port: env.PORT || 8080,
       },
-      target: "web",
+      target: 'web',
       context: PATHS.src,
 
       entry: {
-        app: "index.tsx"
+        app: 'index.tsx',
       },
       output: {
         path: PATHS.dist,
-        filename: isDev ? "vendor.[hash].js" : "vendor.[contenthash].js",
-        publicPath: "/",
-        chunkFilename: isDev ? "[name].[hash].js" : "[name].[contenthash].js"
+        filename: isDev ? 'vendor.[hash].js' : 'vendor.[contenthash].js',
+        publicPath: '/',
+        chunkFilename: isDev ? '[name].[hash].js' : '[name].[contenthash].js',
       },
 
       resolve: {
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-        modules: ["src", "node_modules"],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.css'],
+        modules: ['src', 'node_modules'],
         alias: {
-          "react-dom": "@hot-loader/react-dom"
-        }
+          'react-dom': '@hot-loader/react-dom',
+        },
       },
 
       module: {
@@ -64,161 +64,138 @@ module.exports = (env = defaults) => {
             include: PATHS.src,
             use: env.awesome
               ? [
-                  { loader: "react-hot-loader/webpack" },
+                  { loader: 'react-hot-loader/webpack' },
                   {
-                    loader: "awesome-typescript-loader",
+                    loader: 'awesome-typescript-loader',
                     options: {
                       transpileOnly: true,
                       useTranspileModule: false,
-                      sourceMap: isSourceMap
-                    }
-                  }
+                      sourceMap: isSourceMap,
+                    },
+                  },
                 ]
               : [
-                  { loader: "react-hot-loader/webpack" },
+                  { loader: 'react-hot-loader/webpack' },
                   {
-                    loader: "ts-loader",
+                    loader: 'ts-loader',
                     options: {
                       transpileOnly: true,
                       compilerOptions: {
                         sourceMap: isSourceMap,
-                        target: isDev ? "es2015" : "es5",
+                        target: isDev ? 'es2015' : 'es5',
                         isolatedModules: true,
-                        noEmitOnError: false
-                      }
-                    }
-                  }
-                ]
+                        noEmitOnError: false,
+                      },
+                    },
+                  },
+                ],
           },
-          // Rules for Style Sheets
           {
-            test: reStyle,
-            rules: [
-              // Convert CSS into JS module
+            test: /\.(css|scss)$/,
+            include: PATHS.src,
+            use: [
+              'style-loader',
               {
-                issuer: { not: [reStyle] },
-                use: "isomorphic-style-loader"
-              },
-
-              // Process external/third-party styles
-              {
-                exclude: PATHS.src,
-                loader: "css-loader",
+                loader: 'css-loader',
                 options: {
-                  sourceMap: isDev,
-                  minimize: isDev ? false : minimizeCssOptions
-                }
-              },
-
-              // Process internal/project styles (from src folder)
-              {
-                include: PATHS.src,
-                loader: "css-loader",
-                options: {
-                  // CSS Loader https://github.com/webpack/css-loader
-                  importLoaders: 1,
-                  sourceMap: isDev,
-                  // CSS Modules https://github.com/css-modules/css-modules
+                  sourceMap: true,
                   modules: true,
-                  localIdentName: isDev ? "[name]-[local]-[hash:base64:5]" : "[hash:base64:5]"
-                  // CSS Nano http://cssnano.co/
-                  // minimize: isDev ? false : minimizeCssOptions,
-                }
+                  importLoaders: 1,
+                  localIdentName: '[name]__[local]___[hash:base64:5]',
+                },
               },
-
-              // Apply PostCSS plugins including autoprefixer
               {
-                loader: "postcss-loader",
+                loader: 'postcss-loader',
                 options: {
-                  ident: "postcss",
+                  ident: 'postcss',
                   plugins: [
-                    require("postcss-import")({ addDependencyTo: webpack }),
-                    require("postcss-url")(),
-                    require("postcss-preset-env")({
+                    require('postcss-import')({ addDependencyTo: webpack }),
+                    require('postcss-url')(),
+                    require('postcss-preset-env')({
                       /* use stage 2 features (defaults) */
-                      stage: 2
+                      stage: 2,
                     }),
-                    require("postcss-reporter")(),
-                    require("postcss-browser-reporter")({
-                      disabled: !isBuild
-                    })
-                  ]
-                }
-              }
-            ]
-          }
-        ]
+                    require('postcss-reporter')(),
+                    require('postcss-browser-reporter')({
+                      disabled: !isBuild,
+                    }),
+                  ],
+                },
+              },
+            ],
+          },
+        ],
       },
       optimization: {
         splitChunks: {
           name: true,
           cacheGroups: {
             commons: {
-              chunks: "initial",
-              minChunks: 2
+              chunks: 'initial',
+              minChunks: 2,
             },
             vendor: {
-              chunks: "all",
-              test: /node_modules/
-            }
-          }
+              chunks: 'all',
+              test: /node_modules/,
+            },
+          },
         },
-        runtimeChunk: true
+        runtimeChunk: true,
       },
       plugins: [
         new webpack.EnvironmentPlugin({
-          NODE_ENV: JSON.stringify(isDev ? "development" : "production")
+          NODE_ENV: JSON.stringify(isDev ? 'development' : 'production'),
         }),
         new HtmlWebpackPlugin({
-          template: path.join(PATHS.src, "assets/index.html")
+          template: path.join(PATHS.src, 'assets/index.html'),
         }),
         ...(isDev
           ? [
               new webpack.HotModuleReplacementPlugin({
                 // multiStep: true, // better performance with many files
               }),
-              new webpack.NamedModulesPlugin()
+              new webpack.NamedModulesPlugin(),
             ]
           : []),
         ...(isBuild
           ? [
               new webpack.LoaderOptionsPlugin({
                 minimize: true,
-                debug: false
+                debug: false,
               }),
               new webpack.optimize.UglifyJsPlugin({
                 beautify: false,
                 compress: {
-                  screw_ie8: true
+                  screw_ie8: true,
                 },
                 comments: false,
-                sourceMap: isSourceMap
-              })
+                sourceMap: isSourceMap,
+              }),
             ]
-          : [])
-      ]
+          : []),
+      ],
     },
     {
-      entry: "./src/server.ts",
-      target: "node",
-      mode: isDev ? "development" : "production",
-      devtool: isDev ? "eval-source-map" : "source-map",
+      entry: './src/server.ts',
+      target: 'node',
+      mode: isDev ? 'development' : 'production',
+      devtool: isDev ? 'eval-source-map' : 'source-map',
       module: {
         rules: [
           {
             test: /\.tsx?$/,
-            use: "ts-loader",
-            exclude: /node_modules/
-          }
-        ]
+            use: 'ts-loader',
+            exclude: /node_modules/,
+          },
+        ],
       },
       resolve: {
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: ['.tsx', '.ts', '.js', '.css'],
       },
       output: {
-        filename: "server.js",
-        path: PATHS.dist
-      }
-    }
+        filename: 'server.js',
+        path: PATHS.dist,
+      },
+    },
   ];
 };

@@ -6,6 +6,7 @@ import { selectTodoList } from 'store/todo/selectors';
 import { State } from 'store/types';
 import { ITodoItem } from 'interfaces/todo/ITodoItem';
 import * as actions from 'store/todo/action';
+import * as s from './style.css';
 
 interface StateProps {
   list: ITodoItem[];
@@ -19,6 +20,10 @@ const Todo: React.FC<StateProps> = ({ list, ...actions }) => {
     <div>
       <TodoNewItem onAdd={actions.onAdd} />
       <TodoList list={list} {...actions} />
+
+      <div className={s.debug}>
+        <pre>{JSON.stringify(list, undefined, 2)}</pre>
+      </div>
     </div>
   );
 };

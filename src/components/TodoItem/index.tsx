@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ITodoItem } from 'interfaces/todo/ITodoItem';
-import * as style from './style.css';
+import * as s from './style.css';
 import * as actions from '../../store/todo/action';
 
 interface ComponentProps {
@@ -11,7 +11,7 @@ interface ComponentProps {
 }
 
 const TodoItem: React.FC<ComponentProps> = ({ item, ...actions }) => (
-  <li className={style.done}>
+  <li className={item.completed ? s.done : ''}>
     {actions.onComplete && (
       <input
         type="checkbox"

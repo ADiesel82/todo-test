@@ -13,12 +13,20 @@ export const TodoNewItem: React.FC<ComponenProps> = props => {
   };
 
   const handleSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const value = event.currentTarget.value.trim();
-    if (event.which === 13 && value.length > 0) {
-      props.onAdd({ message: value });
-      setMessage('');
+    if (event.which === 13) {
+      add();
     }
   };
 
-  return <input name="" value={message} onChange={onChange} onKeyDown={handleSubmit} />;
+  const add = () => {
+    props.onAdd({ message });
+    setMessage('');
+  };
+
+  return (
+    <>
+      <input name="" value={message} onChange={onChange} onKeyDown={handleSubmit} />
+      <button onClick={() => add()}>Add</button>
+    </>
+  );
 };
