@@ -1,5 +1,5 @@
-import { TodoState } from "./todo/types";
+import { TodoState } from './todo/types';
 
 export interface State {
-    todo: TodoState,
+  todo: TodoState;
 }

@@ -4,19 +4,17 @@ import { rootReducer } from './reducer';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 
 export function configureStore(initialState?: State): Store<State> {
-    let middleware;
+  let middleware;
 
-    if (process.env.NODE_ENV !== 'production') {
-        middleware = devToolsEnhancer({});
-    }
+  if (process.env.NODE_ENV !== 'production') {
+    middleware = devToolsEnhancer({});
+  }
 
-    const store = createStore(rootReducer, initialState, middleware);
+  const store = createStore(rootReducer, initialState, middleware);
 
-    if (module.hot) {
-        module.hot.accept('../store', () =>
-            store.replaceReducer(require('../store').default()),
-        );
-    }
+  if (module.hot) {
+    module.hot.accept('../store', () => store.replaceReducer(require('../store').default()));
+  }
 
-    return store;
+  return store;
 }

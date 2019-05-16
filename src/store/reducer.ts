@@ -3,5 +3,5 @@ import { todoReducer } from './todo/reducer';
 import { State } from './types';
 
 export const rootReducer = combineReducers<State>({
-    todo: todoReducer,
+  todo: todoReducer,
 });
