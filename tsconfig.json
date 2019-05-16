@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "outDir": "dist",
+        "jsx": "react",
+        "allowJs": true,
+        "target": "es5",
+        "module": "es6",
+        "lib": [
+            "es6",
+            "es7",
+            "dom"
+        ],
+        "noUnusedLocals": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "removeComments": true,
+        "strict": true,
+        "paths": {
+            "*": [
+                "*",
+                "types/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+    ]
+}

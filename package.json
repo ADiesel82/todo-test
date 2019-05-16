@@ -1,0 +1,60 @@
+{
+  "name": "todo-test",
+  "version": "1.0.0",
+  "description": "Simple TODO app without frameworks",
+  "main": "dist/index.js",
+  "scripts": {
+    "start:dev": "webpack-dev-server --progress --open",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ADiesel82/todo-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ADiesel82/todo-test/issues"
+  },
+  "homepage": "https://github.com/ADiesel82/todo-test#readme",
+  "dependencies": {
+    "@hot-loader/react-dom": "^16.8.6",
+    "react": "^16.8.6",
+    "react-redux": "^7.0.3",
+    "react-router": "^5.0.0",
+    "redux-actions": "^2.6.5"
+  },
+  "devDependencies": {
+    "@types/history": "^4.7.2",
+    "@types/node": "^12.0.1",
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.9",
+    "@types/react-router": "^5.0.0",
+    "@types/redux-actions": "^2.6.1",
+    "@types/webpack": "^4.4.31",
+    "@types/webpack-env": "^1.13.9",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "isomorphic-style-loader": "^5.0.1",
+    "mini-css-extract-plugin": "^0.6.0",
+    "postcss": "^7.0.16",
+    "postcss-browser-reporter": "^0.6.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.6.0",
+    "postcss-reporter": "^6.0.1",
+    "postcss-url": "^8.0.0",
+    "react-hot-loader": "^4.8.4",
+    "redux-devtools-extension": "^2.13.8",
+    "ts-loader": "^6.0.0",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.3.1"
+  }
+}
