@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from '@hot-loader/react-dom';
+import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { configureStore } from 'store';

@@ -2,9 +2,9 @@
   "name": "todo-test",
   "version": "1.0.0",
   "description": "Simple TODO app without frameworks",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "PORT=80 webpack-dev-server --progress --open",
+    "start": "node dist/server.js",
     "start:dev": "webpack-dev-server --progress --open",
     "build": "webpack --mode production"
   },
@@ -20,12 +20,15 @@
   "homepage": "https://github.com/ADiesel82/todo-test#readme",
   "dependencies": {
     "@hot-loader/react-dom": "^16.8.6",
+    "express": "^4.16.4",
     "react": "^16.8.6",
+    "react-dom": "npm:@hot-loader/react-dom",
     "react-redux": "^7.0.3",
     "react-router": "^5.0.0",
     "redux-actions": "^2.6.5"
   },
   "devDependencies": {
+    "@types/express": "^4.16.1",
     "@types/history": "^4.7.2",
     "@types/node": "^12.0.1",
     "@types/react": "^16.8.17",
