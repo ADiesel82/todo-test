@@ -8,13 +8,17 @@ const PATHS = {
     dist: path.resolve(__dirname, './dist'),
 };
 
+const defaults = {
+    PORT: process.env.PORT || 8080
+};
+
 const reStyle = /\.(css|less|styl|scss|sass|sss)$/;
 const reTypeScript = /\.tsx?$/;
 const minimizeCssOptions = {
     discardComments: { removeAll: true },
 };
 
-module.exports = (env = {}) => {
+module.exports = (env = defaults) => {
     console.log({ env });
     const isBuild = !!env.build;
     const isDev = !env.build;
@@ -29,6 +33,7 @@ module.exports = (env = {}) => {
             hotOnly: true,
             historyApiFallback: true,
             overlay: true,
+            port: env.PORT || 8080,
         },
         target: 'web',
         context: PATHS.src,
